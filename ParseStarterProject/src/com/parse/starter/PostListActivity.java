@@ -110,7 +110,7 @@ public class PostListActivity extends ListActivity {
 	}
 	
 	protected void onListItemClick (ListView l, View v, int position, long id) {
-		Toast.makeText(this, locPosts.get(position).getString("textContent"), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, locPosts.get(position).getString("textContent"), Toast.LENGTH_SHORT).show();
 		Intent i = new Intent(PostListActivity.this, ShowMapActivity.class);
 		i.putExtra("user", locPosts.get(position).getString("user"));
 		i.putExtra("content", locPosts.get(position).getString("textContent"));
@@ -152,7 +152,7 @@ public class PostListActivity extends ListActivity {
 					posts.clear();
 					for (ParseObject post : postList) {
 						locPosts.add(post);
-						posts.add(post.getString("textContent"));
+						posts.add(post.getString("textContent") + " - User: " + post.getString("user"));
 					}
 					((ArrayAdapter<String>) getListAdapter())
 							.notifyDataSetChanged();

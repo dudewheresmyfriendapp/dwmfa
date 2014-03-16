@@ -31,8 +31,8 @@ public class ShowMapActivity extends Activity {
         .getMap();
     Marker locMarker = map.addMarker(new MarkerOptions()
         .position(LOCATION)
-        .title(extras.getString("content"))
-        .snippet("Author: " + extras.getString("author") + extras.getString("description")));
+        .title(extras.getString("content") + " - User: " + extras.getString("user"))
+        .snippet(extras.getString("description")));
 
     map.moveCamera(CameraUpdateFactory.newLatLngZoom(LOCATION, 15));
 

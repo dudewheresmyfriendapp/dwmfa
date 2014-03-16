@@ -33,6 +33,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	public static String MYTAG = "MYTAG";
 	private final static int
     CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	private String user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,10 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		locClient = new LocationClient(this, this, this);
 		locClient.connect();
 
+		//Toast.makeText(this, ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
+		user = ParseUser.getCurrentUser().getUsername();
+		Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
+		
 		saveButton = ((Button) findViewById(R.id.save_button));
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
@@ -80,7 +85,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 				post.put("textDescription", postDescription.getText().toString());
 				post.put("latitude", lastLat);
 				post.put("longitude", lastLong);
-				post.put("user", ParseUser.getCurrentUser().getUsername());
+				post.put("user", user);
 				
 
 				// Create an author relationship with the current user
@@ -92,6 +97,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 				Log.d(MYTAG, "group_num is: " + group_num);
 				post.put("group", group_num);
 				post.put("author", ParseUser.getCurrentUser());
+				
 				
 				locClient.disconnect();
 				
@@ -144,7 +150,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
     @Override
     public void onConnected(Bundle dataBundle) {
         // Display the connection status
-        Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
 
     }
     
@@ -155,8 +161,8 @@ GooglePlayServicesClient.OnConnectionFailedListener{
     @Override
     public void onDisconnected() {
         // Display the connection status
-        Toast.makeText(this, "Disconnected. Please re-connect.",
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Disconnected. Please re-connect.",
+        //        Toast.LENGTH_SHORT).show();
     }
     
     /*
