@@ -14,12 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class PostListActivity extends ListActivity {
 
@@ -29,6 +31,7 @@ public class PostListActivity extends ListActivity {
 	
 	
 	private ArrayList<String> posts;
+	private ArrayList<ParseObject> locPosts;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class PostListActivity extends ListActivity {
 		
 		ParseAnalytics.trackAppOpened(getIntent());
 		posts = new ArrayList<String>();
+		locPosts = new ArrayList<ParseObject>();
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, posts);
@@ -106,8 +110,13 @@ public class PostListActivity extends ListActivity {
 	}
 	
 	protected void onListItemClick (ListView l, View v, int position, long id) {
-		
+		Toast.makeText(this, locPosts.get(position).getString("textContent"), Toast.LENGTH_SHORT).show();
 		Intent i = new Intent(PostListActivity.this, ShowMapActivity.class);
+		i.putExtra("user", locPosts.get(position).getString("user"));
+		i.putExtra("content", locPosts.get(position).getString("textContent"));
+		i.putExtra("description", locPosts.get(position).getString("textDescription"));
+		i.putExtra("latitude", locPosts.get(position).getDouble("latitude"));
+		i.putExtra("longitude", locPosts.get(position).getDouble("longitude"));
 	    Log.d(MYTAG, "created intent");
 	    startActivityForResult(i,3);
 		
@@ -119,7 +128,8 @@ public class PostListActivity extends ListActivity {
 		// Create query for objects of type "Post"
 		Log.d(MYTAG, "inside upDatePostList() in PLA");
 		ParseQuery<ParseObject> query_posts = ParseQuery.getQuery("Post");
-		//posts.clear();
+		posts.clear();
+		locPosts.clear();
 
 		// Restrict to cases where the author is the current user.
 		// Note that you should pass in a ParseUser and not the
@@ -141,6 +151,7 @@ public class PostListActivity extends ListActivity {
 					// and notify the adapter
 					posts.clear();
 					for (ParseObject post : postList) {
+						locPosts.add(post);
 						posts.add(post.getString("textContent"));
 					}
 					((ArrayAdapter<String>) getListAdapter())
