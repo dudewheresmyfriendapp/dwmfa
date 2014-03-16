@@ -31,5 +31,6 @@
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_new_user_post">NewUserPostActivity</string>
     <string name="action_return_to_groups">Return</string>
+    <string name="title_activity_show_map">ShowMapActivity</string>
 
 </resources>
