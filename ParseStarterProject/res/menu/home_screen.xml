@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- 
+    <item android:id="@+id/menu_title"
+        android:title="@string/home_screen_title"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+         -->
+    
+    <item android:id="@+id/logout_button"
+        android:title="@string/logout_button"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    
+    <item
+        android:id="@+id/action_create_group"
+        android:icon="@drawable/ic_action_new"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_create_group">
+    </item>
+    
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_refresh">
+    </item>
+    
+    
+</menu>
+
